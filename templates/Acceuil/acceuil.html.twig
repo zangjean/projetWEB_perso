@@ -1,0 +1,28 @@
+{% extends 'Layouts/layout_vente.html.twig' %}
+
+{% block title %} Acceuil {% endblock %}
+
+{% block titre_principal %}! Bienvenue !{% endblock %}
+
+{% block bienvenue %}
+    {% if utilisateur is null %}
+        <h3>Visiteur anonyme, veuillez vous connecter</h3>
+    {% else %}
+
+        <h3>Bonjour {{ utilisateur.nom }}  {{ utilisateur.prenom }} de {{ utilisateur.getPaysDAppartenance.nom }}</h3>
+        <h4> Vous etes :</h4>
+        <ul>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li> Super Administrateur </li>
+            {% elseif is_granted('ROLE_ADMIN') %}
+                <li> Administrateur </li>
+            {% else %}
+                <li> Client </li>
+            {% endif %}
+        </ul>
+
+    {% endif %}
+
+{% endblock %}
+
+

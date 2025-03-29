@@ -1,0 +1,36 @@
+{% extends 'Layouts/layout_vente.html.twig' %}
+
+{% block vue %}
+    {% if produits is empty %}
+        <h3>Aucun produit</h3>
+    {% else %}
+        <table border="5">
+            <thead>
+                <tr>
+                    <th scope="col">Libelle</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prix Unitaire</th>
+                    <th scope="col">Quantité en Stock</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Voir le produit</th>
+                    <th scope="col">Supprimer le produit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produit in produits %}
+                    <tr>
+                        <td>{{ produit.id }}</td>
+                        <td>{{ produit.nom }}</td>
+                        <td>{{ produit.prixUnitaire }}</td>
+                        <td>{{ produit.quantiteEnStock }}</td>
+                        <td>{{ produit.description }}</td>
+                        <td><a href="{{ path('produit_afficher_produit', {'id_produit': produit.id}) }}">Voir le produit</a></td>
+                        <td><a href="{{ path('produit_supprimer_produit', {'id_produit': produit.id}) }}">Supprimer le produit</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <a href="{{ path('produit_ajouter_produit') }}">Ajouter un produit dans le magasin</a>
+{% endblock %}
+

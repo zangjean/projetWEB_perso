@@ -1,0 +1,36 @@
+{# template racine (niveau 2)  #}
+{% extends 'Layouts/layout.html.twig' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/vente.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div id="content">
+        <header>
+            {% include 'Layouts/_header.html.twig' %}
+        </header>
+
+        <div id="vue">
+            <h1>
+                {% block titre_principal %}
+                {% endblock %}
+            </h1>
+            {% block bienvenue %}
+            {% endblock %}
+            {% include 'Layouts/_layout_flash.html.twig' %}
+            {% include 'Menu/_menu.html.twig' %}
+            {% block vue %}
+            {% endblock %}
+        </div>
+    </div> <!-- Fin de #content -->
+
+    <footer>
+        {% include 'Layouts/_footer.html.twig' %}
+    </footer>
+{% endblock %}

@@ -1,0 +1,8 @@
+.footer {
+    background-image: url('/images/footer.png');
+    background-size: cover;      /* ou contain selon l’effet voulu */
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 150px;               /* ou ajuste selon la taille de ton image */
+    width: 100%;
+}

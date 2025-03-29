@@ -1,0 +1,26 @@
+{% extends 'Layouts/layout_vente.html.twig' %}
+
+{% block vue %}
+    <ul>
+        <li>{{ produit.nom }}</li>
+        <li>PRIX : {{ produit.prixUnitaire }}</li>
+        <li>DESCRIPTION : {{ produit.description }}</li>
+        <li>ICI UNE IMAGE</li>
+        <li>
+            Pays de Disponibilité :
+            {% if produit.payss is empty %}
+                <ul>
+                    <li>Donnée non disponible</li>
+                </ul>
+            {% else %}
+                <ul>
+                    {% for pays in produit.payss %}
+                        <li>{{ pays.nom }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    </ul>
+
+{% endblock %}
+

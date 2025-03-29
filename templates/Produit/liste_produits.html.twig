@@ -1,0 +1,32 @@
+{% extends 'Layouts/layout_vente.html.twig' %}
+
+{% block vue %}
+    {% if produits is empty %}
+        <h1>Aucun produit dans le magasin</h1>
+    {% else %}
+            <table class="table" border="5">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Libelle</th>
+                        <th scope="col">Prix Unitaire</th>
+                        <th scope="col">Quantité disponible</th>
+                        <th scope="col">Liste déroulante</th>
+                        <th scope="col">Button Modifier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produit in produits %}
+                        <tr>
+                            <th scope="row">{{ produit.nom }}</th>
+                            <td>{{ produit.id }}</td>
+                            <td>{{ produit.prixUnitaire }}</td>
+                            <td>{{ produit.quantiteEnStock }}</td>
+                            <td>listes</td>
+                            <td>Modifier</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+
+<a href="{{ path('acceuil') }}">Accueil</a>
+
+{% if is_granted('ROLE_CLIENT') %}
+{% include 'Menu/_client.html.twig' %}
+{% endif %}
+
+{% if is_granted('ROLE_ADMIN') %}
+{% include 'Menu/_admin.html.twig' %}
+{% endif %}
+
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+{% include 'Menu/_super_admin.html.twig' %}
+{% endif %}
+
+{% if app.user is null %}
+{% include 'Menu/_visiteur.html.twig' %}
+{% endif %}

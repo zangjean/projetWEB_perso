@@ -1,0 +1,32 @@
+{% extends 'Layouts/layout_vente.html.twig' %}
+
+{% block vue %}
+    {% if admins is empty %}
+    <h3>Aucun administrateur</h3>
+    {% else %}
+        <table class="table" border="5">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Pays </th>
+                    <th scope="col"> Suppression </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                    <tr>
+                        <td>{{ admin.nom }}</td>
+                        <td>{{ admin.prenom }}</td>
+                        <td>{{ admin.paysDAppartenance.nom }}</td>
+                        <td><a href="{{ path('superadmin_supprimer_admin', {'id_admin': admin.id}) }}">Supprimer</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <ul>
+        <li><a href="{{ path('superadmin_ajouter_admin') }}">Ajouter un administrateur</a></li>
+    </ul>
+    {{ dump(admins) }}
+{% endblock %}

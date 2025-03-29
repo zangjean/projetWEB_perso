@@ -1,0 +1,31 @@
+{% extends 'Layouts/layout_vente.html.twig' %}
+
+{% block vue %}
+    {% if clients is empty %}
+    <h1>Aucun client</h1>
+    {% else %}
+        <table class="table" border="5">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Pays</th>
+                    <th scope="col">Suppression</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.nom }}</td>
+                        <td>{{ client.prenom }}</td>
+                        <td>{{ client.paysDAppartenance.nom }}</td>
+                        <td><a href="{{ path('admin_supprimer_client', {'id_client': client.id}) }}">Supprimer</a></td>
+                    </tr>
+
+
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

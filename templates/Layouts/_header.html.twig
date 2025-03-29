@@ -1,0 +1,10 @@
+
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+    <div class="header_super_admin" ></div>
+{% elseif is_granted('ROLE_ADMIN')%}
+    <div class="header_admin" ></div>
+{% elseif is_granted('ROLE_CLIENT') %}
+    <div class="header_client" ></div>
+{% else %}
+    <div class="header" ></div>
+{% endif %}

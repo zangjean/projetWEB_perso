@@ -1,0 +1,35 @@
+.header {
+    background-image: url('/images/header.png');
+    background-size: cover;      /* ou contain selon l’effet voulu */
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 237px;               /* ou ajuste selon la taille de ton image */
+    width: 100%;
+}
+
+.header_admin {
+    background-image: url('/images/header_admin.png');
+    background-size: cover;      /* ou contain selon l’effet voulu */
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 310px;               /* ou ajuste selon la taille de ton image */
+    width: 100%;
+}
+
+.header_client {
+    background-image: url('/images/header_client.png');
+    background-size: cover;      /* ou contain selon l’effet voulu */
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 310px;               /* ou ajuste selon la taille de ton image */
+    width: 100%;
+}
+
+.header_super_admin{
+    background-image: url('/images/header_superadmin.png');
+    background-size: cover;      /* ou contain selon l’effet voulu */
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 310px;               /* ou ajuste selon la taille de ton image */
+    width: 100%;
+}
