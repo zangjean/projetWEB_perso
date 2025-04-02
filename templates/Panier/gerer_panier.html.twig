@@ -1,0 +1,61 @@
+{% extends 'Layouts/layout_vente.html.twig' %}
+
+{% block vue %}
+    {% if panier is null%}
+    <h4>Votre n'avez pas de panier</h4>
+    {% elseif panier is empty%}
+        <h4>Votre panier est vide</h4>
+    {% else %}
+        <h4>Votre panier :</h4>
+        <table class="table" border="5">
+            {% set nbrProduitTot = 0 %}
+            {% set prixTotAll = 0 %}
+            <thead>
+            <tr>
+                <th> Nom </th>
+                <th> Quantité désiré </th>
+                <th> Prix Unitaire </th>
+                <th> Prix Tot </th>
+                <th> Action </th>
+            </tr>
+
+            </thead>
+            <tbody>
+
+                {% for prod in panier %}
+                    {% if prod.quantite > 0 %}
+                        {% set prixTot = prod.produit.prixUnitaire * prod.quantite %}
+                        <tr>
+                            <td>{{ prod.produit.nom }}</td>
+                            <td>{{ prod.quantite }}</td>
+                            <td> {{ prod.produit.prixUnitaire }}</td>
+                            <td>{{ prixTot }} €</td>
+                            <td> <a href="{{ path('panier_vider_produit_du_panier',{'id_produit':prod.id})}}"> Retirer </a> </td>
+                        </tr>
+                        {% set nbrProduitTot = nbrProduitTot + prod.quantite %}
+                        {% set prixTotAll = prixTotAll + prixTot %}
+                    {% endif %}
+
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <td> {{ nbrProduitTot }} </td>
+                    <td> </td>
+                    <td> {{ prixTotAll }} €</td>
+
+
+                </tr>
+            </tfoot>
+        </table>
+
+        <p>
+
+            <a href="{{ path('panier_vider_panier') }}" > Vider le panier </a>
+            <a href="{{ path('panier_commander') }}" > Commander  </a>
+
+        </p>
+    {% endif %}
+
+{% endblock %}

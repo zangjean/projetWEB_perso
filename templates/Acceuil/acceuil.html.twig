@@ -9,17 +9,21 @@
         <h3>Visiteur anonyme, veuillez vous connecter</h3>
     {% else %}
 
-        <h3>Bonjour {{ utilisateur.nom }}  {{ utilisateur.prenom }} de {{ utilisateur.getPaysDAppartenance.nom }}</h3>
-        <h4> Vous etes :</h4>
-        <ul>
+        <h3>Bonjour {{ utilisateur.nom }}  {{ utilisateur.prenom }} .</h3>
+        {% if utilisateur.getPaysDAppartenance is null %}
+            <h4>Vous n'avez pas de pays d'appartenance ?!</h4>
+        {% else %}
+            <h4>Vous etes de {{ utilisateur.getPaysDAppartenance.nom }}</h4>
+        {% endif %}
+        <h4> Vous etes :
             {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <li> Super Administrateur </li>
+                 Super Administrateur
             {% elseif is_granted('ROLE_ADMIN') %}
-                <li> Administrateur </li>
+                 Administrateur
             {% else %}
-                <li> Client </li>
+                 Client
             {% endif %}
-        </ul>
+        </h4>
 
     {% endif %}
 

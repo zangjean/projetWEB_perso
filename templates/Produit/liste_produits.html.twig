@@ -11,22 +11,43 @@
                         <th scope="col">Libelle</th>
                         <th scope="col">Prix Unitaire</th>
                         <th scope="col">Quantité disponible</th>
-                        <th scope="col">Liste déroulante</th>
-                        <th scope="col">Button Modifier</th>
+                        <th scope="col">Prendre</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for produit in produits %}
-                        <tr>
-                            <th scope="row">{{ produit.nom }}</th>
-                            <td>{{ produit.id }}</td>
-                            <td>{{ produit.prixUnitaire }}</td>
-                            <td>{{ produit.quantiteEnStock }}</td>
-                            <td>listes</td>
-                            <td>Modifier</td>
-                        </tr>
+                            <tr>
+                                <th scope="row">{{ produit.nom }}</th>
+                                <td>{{ produit.id }}</td>
+                                <td>{{ produit.prixUnitaire }} €</td>
+                                <td>{{ produit.quantiteEnStock }}</td>
+                                <td>
+                                    {% set afficherForm = true %}
+                                    {% set produitDansPanier = false %}
+
+                                    {% if produit.quantiteEnStock == 0 %}
+                                        {% for p in panier_utilisateur %}
+                                            {% if p.produit.id == produit.id and p.quantite > 0 %}
+                                                {% set produitDansPanier = true %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if not produitDansPanier %}
+                                            {% set afficherForm = false %}
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if afficherForm %}
+                                        {{ form(formulaires[produit.id]) }}
+                                    {% else %}
+                                        <em>IMPOSSIBLE</em>
+                                    {% endif %}
+
+                                </td>
+                            </tr>
                     {% endfor %}
                 </tbody>
             </table>
     {% endif %}
 {% endblock %}
+

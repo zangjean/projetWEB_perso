@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route(path: '/security', name: 'security')]
 class SecurityController extends AbstractController
@@ -29,22 +30,17 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: '_logout')]
     public function logout(): void
     {
+        $user = $this->getUser();
+        dump($user);
+        $this->addFlash('info', 'Vous etes à présent déconnecté');
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route('/accessuser', name: '_accessuser')]
-    public function accessUserAction(): Response
+    #[Route(name: '_after_logout')] //cette route n'est utilisé que par security
+    public function afterLogout(Request $request): Response
     {
-        return $this->render('Security/access_user.html.twig');
-    }
-
-
-    #[Route('/test', name: '_test')]
-    //#[IsGranted(’ROLE_SALARIE’, statusCode: Response::HTTP_NOT_FOUND, message: ’No access! Get out!’)]
-    //#[IsGranted(new Expression(’is_granted(\’ROLE_SALARIE\’) or is_granted("ROLE_GESTION")’))]
-    #[isGranted('ROLE_ADMIN')]
-    public function testAction(): Response{
-        return new Response('test');
+        $request->getSession()->set('just_logged_out', true);
+        return $this->redirectToRoute('acceuil');
     }
 
 }

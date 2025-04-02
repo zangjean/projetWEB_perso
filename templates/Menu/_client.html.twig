@@ -4,12 +4,12 @@
         <a href="{{ path('security_logout') }}">Se déconnecter</a>
     </li>
     <li>
-        <a href="{{ path('utilisateur_modifier_mon_compte') }}"> Modifier le profil</a>
+        {% include 'Menu/_modifier_son_compte.html.twig' %}
     </li>
     <li>
         <a href="{{ path('produit_liste_produits') }}">Acceder au Magasin</a>
     </li>
     <li>
-        <p> gerer son panier </p>
+        <a href="{{ path('panier_gerer_panier') }}">Mon Panier</a>
     </li>
 </ul>

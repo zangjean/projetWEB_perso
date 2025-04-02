@@ -1,6 +1,7 @@
 {% extends 'Layouts/layout_vente.html.twig' %}
 
 {% block vue %}
+    <p>
     <ul>
         <li>{{ produit.nom }}</li>
         <li>PRIX : {{ produit.prixUnitaire }}</li>
@@ -21,6 +22,7 @@
             {% endif %}
         </li>
     </ul>
+    </p>
 
 {% endblock %}
 

@@ -1,8 +1,8 @@
 {% extends 'Layouts/layout_vente.html.twig' %}
 
 {% block vue %}
-    {% if clients is empty %}
-    <h1>Aucun client</h1>
+    {% if utilisateurs is empty %}
+    <h1> Aucun utilisateurs </h1>
     {% else %}
         <table class="table" border="5">
             <thead>
@@ -10,19 +10,26 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Prenom</th>
                     <th scope="col">Pays</th>
+                    <th scope="col">Roles</th>
                     <th scope="col">Suppression</th>
                 </tr>
             </thead>
             <tbody>
-                {% for client in clients %}
+                {% for utilisateur in utilisateurs %}
                     <tr>
-                        <td>{{ client.nom }}</td>
-                        <td>{{ client.prenom }}</td>
-                        <td>{{ client.paysDAppartenance.nom }}</td>
-                        <td><a href="{{ path('admin_supprimer_client', {'id_client': client.id}) }}">Supprimer</a></td>
+                        <td>{{ utilisateur.nom }}</td>
+                        <td>{{ utilisateur.prenom }}</td>
+                        <td>{{ utilisateur.paysDAppartenance.nom }}</td>
+                        {% if 'ROLE_SUPER_ADMIN' in utilisateur.roles %}
+                            <td> Super Administrateur </td>
+                        {% elseif  'ROLE_ADMIN' in utilisateur.roles %}
+                            <td> Administrateur </td>
+                        {% elseif 'ROLE_CLIENT' in utilisateur.roles %}
+                            <td> Client </td>
+                            <td><a href="{{ path('admin_supprimer_client', {'id_client': utilisateur.id}) }}">Supprimer</a></td>
+                        {% endif %}
+
                     </tr>
-
-
                 {% endfor %}
             </tbody>
         </table>

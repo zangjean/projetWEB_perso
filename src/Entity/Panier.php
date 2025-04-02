@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PanierRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -30,6 +31,11 @@ class Panier
     )]
     private ?Produit $produit = null;
 
+    #[ORM\Column(
+        type: Types::INTEGER,
+        nullable: false)]
+    private ?int $quantite = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,6 +61,18 @@ class Panier
     public function setProduit(?Produit $produit): static
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): static
+    {
+        $this->quantite = $quantite;
 
         return $this;
     }

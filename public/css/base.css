@@ -1,4 +1,51 @@
 /* Style de base */
 /* Assure que la page prend toute la hauteur de l'écran */
 
+/* ========================
+   Style de base du site
+   ======================== */
+
+/* Reset de base */
+* {/*cible tout les éléments*/
+    margin: 0; /*retire la marge par defaut du cite */
+    padding: 0; /*retire l'ecpacement par default du site*/
+}
+
+/* Fait en sorte que la page prenne toute la hauteur */
+html, body {
+    height: 100%; /*permet de prendre tout l'espace disponible*/
+    font-family: Arial,sans-serif; /*definit le style par defaut du texte du site*/
+    background-color: #adc6e3; /*couleur du fond*/
+    color: #590057; /*couleur du text*/
+}
+
+/* Container global pour gérer le layout */
+#content {
+    min-height: calc(100vh - 150px); /* pour forcer le footer en bas */
+    padding: 20px; /*espace autour du layout*/
+}
+
+/* Liens */
+a {
+    color: #097a05;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 10px;
+}
+
+/* Footer (si tu veux une base ici aussi) */
+.footer {
+    height: 150px;
+    background-color: #222;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 

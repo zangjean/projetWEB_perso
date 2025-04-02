@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use App\Service\UtilsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,11 +19,10 @@ final class SuperadminController extends AbstractController
 {
 
     #[Route('/gerer_admin', name: '_gerer_admin')]
-    public function gererAdminAction(EntityManagerInterface $em): Response
+    public function gererAdminAction(UtilsService $utilsService): Response
     {
-
+        $em = $utilsService->get_entity_manager();
         /*
-         *
          // automatically knows to select Products
         // the "p" is an alias you'll use in the rest of the query
         $qb = $this->createQueryBuilder('p')
@@ -57,8 +57,10 @@ final class SuperadminController extends AbstractController
     #[Route('/supprimer_admin/{id_admin}',
         name: '_supprimer_admin'
     )]
-    public function supprimerAdminAction($id_admin,EntityManagerInterface $em): Response
+    public function supprimerAdminAction($id_admin,UtilsService $utilsService): Response
     {
+        $em = $utilsService->get_entity_manager();
+
         $utilisateur = $em->getRepository(Utilisateur::class)->find($id_admin);
         if($utilisateur)
         {
@@ -73,12 +75,15 @@ final class SuperadminController extends AbstractController
     }
 
     #[Route('/ajouter_admin', name: '_ajouter_admin')]
-    public function ajouterAdminAction(EntityManagerInterface $em,Request $request,UserPasswordHasherInterface $hasher): Response
+    public function ajouterAdminAction(UtilsService $utilsService,UserPasswordHasherInterface $hasher,Request $request): Response
     {
+        $em = $utilsService->get_entity_manager();
+
         $newAdmin = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $newAdmin);
         $form->add('valider', SubmitType::class,['label' => 'Valider']);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $loginTemp = $form->get('login')->getData();
 
@@ -104,8 +109,5 @@ final class SuperadminController extends AbstractController
             'form_inscription' => $form
         );
         return $this->render('Superadmin/ajouter_admin.html.twig', $args);
-
-
-
     }
 }

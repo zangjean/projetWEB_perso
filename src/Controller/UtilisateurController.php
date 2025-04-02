@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use App\Service\UtilsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -21,8 +22,11 @@ final class UtilisateurController extends AbstractController
 
 
     #[Route('/inscription', name: '_inscription')]
-    public function inscriptionAction(EntityManagerInterface $em, UserPasswordHasherInterface $hasher, Request $request ): Response
+    public function inscriptionAction(UserPasswordHasherInterface $hasher, UtilsService $utilsService ): Response
     {
+        $em = $utilsService->get_entity_manager();
+        $request = $utilsService->get_request();
+
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->add('valider', SubmitType::class,['label' => 'Valider']);
@@ -51,9 +55,11 @@ final class UtilisateurController extends AbstractController
 
     #[Route('/modifier_mon_compte', name: '_modifier_mon_compte')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    #[IsGranted(new Expression('is_granted("ROLE_CLIENT") or is_granted("ROLE_ADMIN")'))]
-    public function modifierMonComteAction(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $hasher): Response
+    //#[IsGranted(new Expression('is_granted("ROLE_CLIENT") or is_granted("ROLE_ADMIN")'))]
+    public function modifierMonComteAction(UtilsService $utilsService, UserPasswordHasherInterface $hasher,Request $request): Response
     {
+        $em = $utilsService->get_entity_manager();
+
         $utilisateur = $this->getUser();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
 
@@ -67,7 +73,11 @@ final class UtilisateurController extends AbstractController
                 $em->persist($utilisateur);
                 $em->flush();
                 $this->addFlash('info','modification du compte effectueé avec succes');
-                return $this->redirectToRoute('acceuil');
+                if ($this->isGranted('ROLE_SUPER_ADMIN')){
+                    return $this->redirectToRoute('acceuil');
+                }else{
+                    return $this->redirectToRoute('produit_liste_produits');
+                }
             }else{
                 $this->addFlash('info','formulaire de modification de compte incorrect');
             }

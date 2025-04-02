@@ -9,21 +9,40 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use App\Service\UtilsService;
+
 #[Route('/admin', name: 'admin')]
 final class AdminController extends AbstractController
 {
-
     #[Route('/gerer_clients', name: '_gerer_clients')]
-    public function gererClientsAction(EntityManagerInterface $em): Response
+    public function gererClientsAction(UtilsService $utilsService): Response
     {
-        $utilisateurs = $em->getRepository(Utilisateur::class);
-
-        $qb = $utilisateurs->createQueryBuilder('client')
+        $utilisateurs = $utilsService->get_entity_manager()->getRepository(Utilisateur::class);
+        /*
+        $queryBuilder_client = $utilisateurs->createQueryBuilder('client')
             ->where('client.roles LIKE :roles')
             ->setParameter('roles', '%ROLE_CLIENT%');
-        $clients = $qb->getQuery()->getResult();
+        $clients = $queryBuilder_client->getQuery()->getResult();
 
-        $args = ['clients' => $clients];
+        $queryBuilder_admin = $utilisateurs->createQueryBuilder('admin')
+            ->where('admin.roles LIKE :roles')
+            ->setParameter('roles', '%ROLE_ADMIN%');
+        $admins = $queryBuilder_admin->getQuery()->getResult();
+
+        $queryBuilder_superadmin = $utilisateurs->createQueryBuilder('superadmin')
+            ->where('superadmin.roles LIKE :roles')
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
+        $superadmins = $queryBuilder_superadmin->getQuery()->getResult();
+
+        $args = [
+            'clients' => $clients,
+            'admins' => $admins,
+            'superadmins' => $superadmins,
+        ];
+        */
+
+        $args = ['utilisateurs' => $utilisateurs->findAll()];
+
         return $this->render('Admin/gerer_clients.html.twig', $args);
 
     }
@@ -32,15 +51,21 @@ final class AdminController extends AbstractController
     #[Route('/supprimer_client/{id_client}',
         name: '_supprimer_client'
     )]
-    public function supprimerClientAction($id_client,EntityManagerInterface $em): Response
+    public function supprimerClientAction($id_client,UtilsService $utilsService): Response
     {
-        $client = $em->getRepository(Utilisateur::class)->find($id_client);
-        if($client){
-            $em->remove($client);
-            $em->flush();
-            $this->addFlash('info','Client supprimer avec succes');
+        $em = $utilsService->get_entity_manager();
+        if($id_client == $this->getUser())
+        {
+            $this->addFlash('info','Vous ne pouvez pas supprimer votre compte');
         }else{
-            $this->addFlash('info','Client non trouve');
+            $client = $em->getRepository(Utilisateur::class)->find($id_client);
+            if($client){
+                $em->remove($client);
+                $em->flush();
+                $this->addFlash('info','Client supprimer avec succes');
+            }else{
+                $this->addFlash('info','Client non trouve');
+            }
         }
         return $this->redirectToRoute('admin_gerer_clients');
 
@@ -48,8 +73,9 @@ final class AdminController extends AbstractController
 
 
     #[Route('/gerer_produits', name: '_gerer_produits')]
-    public function gererProduitsAction(EntityManagerInterface $em): Response
+    public function gererProduitsAction(UtilsService $utilsService): Response
     {
+        $em=$utilsService->get_entity_manager();
         $produits = $em->getRepository(Produit::class)->findAll();
         $args = ['produits' => $produits];
         return $this->render('Admin/gerer_produits.html.twig', $args);

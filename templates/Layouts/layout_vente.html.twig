@@ -21,13 +21,13 @@
                 {% block titre_principal %}
                 {% endblock %}
             </h1>
-            {% block bienvenue %}
-            {% endblock %}
+            {% block bienvenue %}{% endblock %}
             {% include 'Layouts/_layout_flash.html.twig' %}
-            {% include 'Menu/_menu.html.twig' %}
-            {% block vue %}
-            {% endblock %}
-        </div>
+            <div id="menu">
+                {% include 'Menu/_menu.html.twig' %}
+            </div>
+            {% block vue %}{% endblock %}
+        </div> <!-- Fin de #vue -->
     </div> <!-- Fin de #content -->
 
     <footer>

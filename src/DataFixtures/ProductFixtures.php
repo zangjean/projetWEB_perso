@@ -6,6 +6,7 @@ use App\Entity\Pays;
 use App\Entity\Produit;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ProductFixtures extends Fixture implements DependentFixtureInterface
@@ -15,7 +16,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         return [
             PaysFixtures::class,
         ];
-        // TODO: Implement getDependencies() method.
     }
     public function load(ObjectManager $em): void
     {

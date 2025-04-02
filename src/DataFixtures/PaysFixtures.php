@@ -60,7 +60,7 @@ class PaysFixtures extends Fixture
                 ->setCode($code);
             $manager->persist($pays1);
 
-            // On stocke une référence nommée
+            // On stocke une référence
             $this->addReference($code, $pays1);
         }
 

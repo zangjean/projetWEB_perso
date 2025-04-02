@@ -57,8 +57,8 @@ class Produit
      */
     #[ORM\ManyToMany(targetEntity: Pays::class,inversedBy: 'produits')]
     #[ORM\JoinTable(name: 'l3_produits_pays')]
-    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id')]
-    #[ORM\InverseJoinColumn(name: 'id_pays', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id', nullable: false)]
+    #[ORM\InverseJoinColumn(name: 'id_pays', referencedColumnName: 'id', nullable: false)]
     private Collection $payss;
 
     public function __construct()
@@ -133,7 +133,6 @@ class Produit
         if (!$this->payss->contains($pays)) {
             $this->payss->add($pays);
         }
-
         return $this;
     }
 

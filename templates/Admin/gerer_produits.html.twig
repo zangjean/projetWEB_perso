@@ -13,7 +13,6 @@
                     <th scope="col">Quantité en Stock</th>
                     <th scope="col">Description</th>
                     <th scope="col">Voir le produit</th>
-                    <th scope="col">Supprimer le produit</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +24,6 @@
                         <td>{{ produit.quantiteEnStock }}</td>
                         <td>{{ produit.description }}</td>
                         <td><a href="{{ path('produit_afficher_produit', {'id_produit': produit.id}) }}">Voir le produit</a></td>
-                        <td><a href="{{ path('produit_supprimer_produit', {'id_produit': produit.id}) }}">Supprimer le produit</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
