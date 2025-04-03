@@ -21,42 +21,6 @@ class UtilisateurFixtures extends Fixture
 
     public function load(ObjectManager $manager,): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
-        /*
-        $user2 = new User();
-        $user2
-            ->setLogin('gilles')
-            ->setRoles(['ROLE_ADMIN'])
-            ->setName('gilles')
-            ->setFirstname('Subrenat');
-        $hashedPassword = $this->passwordHasher->hashPassword($user2, 'sellig');
-        $user2->setPassword($hashedPassword);
-        $manager->persist($user2);
-
-        $user3 = new User();
-        $user3
-            ->setLogin('rita')
-            ->setRoles(['ROLE_CLIENT'])
-            ->setName('rita')
-            ->setFirstname('Zrour');
-        $hashedPassword = $this->passwordHasher->hashPassword($user3, 'atir');
-        $user3->setPassword($hashedPassword);
-        $manager->persist($user3);
-
-        $user4 = new User();
-        $user4
-            ->setLogin('boumediene')
-            ->setRoles(['ROLE_CLIENT'])
-            ->setName('saidi')
-            ->setFirstname('boumediene');
-        $hashedPassword = $this->passwordHasher->hashPassword($user4, 'eneidemuob');
-        $user4->setPassword($hashedPassword);
-        $manager->persist($user4);
-        */
-
-
         $utilisateur1 = new Utilisateur();
         $utilisateur1
             ->setNom('admin')

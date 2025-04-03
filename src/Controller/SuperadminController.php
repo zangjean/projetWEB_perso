@@ -22,31 +22,10 @@ final class SuperadminController extends AbstractController
     public function gererAdminAction(UtilsService $utilsService): Response
     {
         $em = $utilsService->get_entity_manager();
-        /*
-         // automatically knows to select Products
-        // the "p" is an alias you'll use in the rest of the query
-        $qb = $this->createQueryBuilder('p')
-            ->where('p.price > :price')
-            ->setParameter('price', $price)
-            ->orderBy('p.price', 'ASC');
-
-        if (!$includeUnavailableProducts) {
-            $qb->andWhere('p.available = TRUE');
-        }
-
-        $query = $qb->getQuery();
-
-        return $query->execute();
-
-        // to get just one result:
-        // $product = $query->setMaxResults(1)->getOneOrNullResult();
-         */
         $utilisateurRepository = $em->getRepository(Utilisateur::class);
         $queryBuilder = $utilisateurRepository->createQueryBuilder('admin')
             ->where('admin.roles LIKE :roles')
             ->setParameter('roles', '%ROLE_ADMIN%');
-        //$query = $queryBuilder->getQuery();
-        //$result = $query->getResult();
         $admins = $queryBuilder->getQuery()->getResult();
 
         $args = ['admins' => $admins];

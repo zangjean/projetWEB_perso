@@ -1,21 +1,16 @@
 {# template racine (niveau 2)  #}
 {% extends 'Layouts/layout.html.twig' %}
-
-
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/vente.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
 {% endblock %}
-
 {% block body %}
-
     <div id="content">
         <header>
             {% include 'Layouts/_header.html.twig' %}
         </header>
-
         <div id="vue">
             <div id="quantite_panier">
                 {{ render(controller('App\\Controller\\AcceuilController::afficherQauntitePanierAction')) }}
@@ -32,7 +27,6 @@
             {% block vue %}{% endblock %}
         </div> <!-- Fin de #vue -->
     </div> <!-- Fin de #content -->
-
     <footer>
         {% include 'Layouts/_footer.html.twig' %}
     </footer>

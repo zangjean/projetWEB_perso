@@ -8,7 +8,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
 class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
     public function getDependencies(): array
@@ -19,9 +18,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     }
     public function load(ObjectManager $em): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
         $produits = [
             ['The Legend of Zelda: Tears of the Kingdom', 'Aventure épique dans un monde ouvert.', 59, 12],
             ['Elden Ring', 'RPG d’action dans un monde sombre et fantastique.', 49, 8],

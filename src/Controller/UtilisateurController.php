@@ -19,14 +19,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/utilisateur', name: 'utilisateur')]
 final class UtilisateurController extends AbstractController
 {
-
-
     #[Route('/inscription', name: '_inscription')]
     public function inscriptionAction(UserPasswordHasherInterface $hasher, UtilsService $utilsService ): Response
     {
         $em = $utilsService->get_entity_manager();
         $request = $utilsService->get_request();
-
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->add('valider', SubmitType::class,['label' => 'Valider']);
@@ -40,29 +37,22 @@ final class UtilisateurController extends AbstractController
             $this->addFlash('info','Compte creer avec succes');
             return $this->redirectToRoute('acceuil');
         }
-
         if ($form->isSubmitted()){
             $this->addFlash('info','formulaire de creation de compte incorrect');
         }
         $args = array(
             'form_inscription' => $form->createView()
         );
-
         return $this->render('Utilisateur/inscription.html.twig',$args);
-
     }
-
 
     #[Route('/modifier_mon_compte', name: '_modifier_mon_compte')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    //#[IsGranted(new Expression('is_granted("ROLE_CLIENT") or is_granted("ROLE_ADMIN")'))]
     public function modifierMonComteAction(UtilsService $utilsService, UserPasswordHasherInterface $hasher,Request $request): Response
     {
         $em = $utilsService->get_entity_manager();
-
         $utilisateur = $this->getUser();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
-
         $form->add('valider', SubmitType::class,['label' => 'Valider']);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -85,11 +75,9 @@ final class UtilisateurController extends AbstractController
         if ($form->isSubmitted()){
             $this->addFlash('info','formulaire de modification de compte incorrect');
         }
-
         $args = array(
             'form_modifier_compte' => $form
         );
-
         return $this->render('Utilisateur/modifier_mon_compte.html.twig',$args);
 
 
