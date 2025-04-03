@@ -18,33 +18,8 @@ final class AdminController extends AbstractController
     public function gererClientsAction(UtilsService $utilsService): Response
     {
         $utilisateurs = $utilsService->get_entity_manager()->getRepository(Utilisateur::class);
-        /*
-        $queryBuilder_client = $utilisateurs->createQueryBuilder('client')
-            ->where('client.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_CLIENT%');
-        $clients = $queryBuilder_client->getQuery()->getResult();
-
-        $queryBuilder_admin = $utilisateurs->createQueryBuilder('admin')
-            ->where('admin.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_ADMIN%');
-        $admins = $queryBuilder_admin->getQuery()->getResult();
-
-        $queryBuilder_superadmin = $utilisateurs->createQueryBuilder('superadmin')
-            ->where('superadmin.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
-        $superadmins = $queryBuilder_superadmin->getQuery()->getResult();
-
-        $args = [
-            'clients' => $clients,
-            'admins' => $admins,
-            'superadmins' => $superadmins,
-        ];
-        */
-
         $args = ['utilisateurs' => $utilisateurs->findAll()];
-
         return $this->render('Admin/gerer_clients.html.twig', $args);
-
     }
 
 

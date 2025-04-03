@@ -1,6 +1,7 @@
 
 <a href="{{ path('acceuil') }}">Accueil</a>
 
+
 {% if is_granted('ROLE_CLIENT') %}
 {% include 'Menu/_client.html.twig' %}
 {% endif %}

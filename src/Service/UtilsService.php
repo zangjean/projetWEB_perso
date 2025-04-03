@@ -54,4 +54,16 @@ class UtilsService
 
         return $panier;
     }
+
+
+    public function quantitePanierUtil(int $id_utilisateur,Request $request): int
+    {
+        $panier = $this->panierDeUtilisateur($this->em->getRepository(Utilisateur::class)->find($id_utilisateur),$request);
+        $quantite = 0;
+        foreach ($panier as $prod){
+            $quantite += $prod->getQuantite();
+        }
+        return $quantite;
+    }
+
 }

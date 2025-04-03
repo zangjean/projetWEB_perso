@@ -17,6 +17,9 @@
         </header>
 
         <div id="vue">
+            <div id="quantite_panier">
+                {{ render(controller('App\\Controller\\AcceuilController::afficherQauntitePanierAction')) }}
+            </div>
             <h1>
                 {% block titre_principal %}
                 {% endblock %}

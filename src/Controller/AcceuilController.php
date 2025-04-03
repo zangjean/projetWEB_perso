@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\UtilsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,5 +22,15 @@ final class AcceuilController extends AbstractController{
 
         $args = ['utilisateur' => $this->getUser()];
         return $this->render('Acceuil/acceuil.html.twig', $args);
+    }
+
+    public function afficherQauntitePanierAction (UtilsService $utilsService,Request $request):Response
+    {
+        $quantitePanier =0;
+        if($this->isGranted('ROLE_CLIENT')){
+            $quantitePanier = $utilsService->quantitePanierUtil($this->getUser()->getId(),$request);
+        }
+
+        return $this->render('Panier/afficher_quantite_panier.html.twig', ['quantitePanier' => $quantitePanier]);
     }
 }
