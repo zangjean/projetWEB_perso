@@ -26,7 +26,7 @@
                             <td> Administrateur </td>
                         {% elseif 'ROLE_CLIENT' in utilisateur.roles %}
                             <td> Client </td>
-                            <td><a href="{{ path('admin_supprimer_client', {'id_client': utilisateur.id}) }}">Supprimer</a></td>
+                            <td><a href="{{ path('utilisateur_supprimer_client', {'id_utilisateur': utilisateur.id}) }}">Supprimer</a></td>
                         {% endif %}
 
                     </tr>

@@ -21,9 +21,7 @@ final class SuperadminController extends AbstractController
     #[Route('/gerer_admin', name: '_gerer_admin')]
     public function gererAdminAction(UtilsService $utilsService): Response
     {
-        $em = $utilsService->get_entity_manager();
-        $utilisateurRepository = $em->getRepository(Utilisateur::class);
-        $queryBuilder = $utilisateurRepository->createQueryBuilder('admin')
+        $queryBuilder = $utilsService->get_utilisateurRepository()->createQueryBuilder('admin')
             ->where('admin.roles LIKE :roles')
             ->setParameter('roles', '%ROLE_ADMIN%');
         $admins = $queryBuilder->getQuery()->getResult();
@@ -31,26 +29,6 @@ final class SuperadminController extends AbstractController
         $args = ['admins' => $admins];
 
         return $this->render('Superadmin/gerer_admin.html.twig', $args);
-    }
-
-    #[Route('/supprimer_admin/{id_admin}',
-        name: '_supprimer_admin'
-    )]
-    public function supprimerAdminAction($id_admin,UtilsService $utilsService): Response
-    {
-        $em = $utilsService->get_entity_manager();
-
-        $utilisateur = $em->getRepository(Utilisateur::class)->find($id_admin);
-        if($utilisateur)
-        {
-            $em->remove($utilisateur);
-            $em->flush();
-            $this->addFlash('info','Admin supprimer avec succes');
-        }else{
-            $this->addFlash('info','Admin non trouve');
-        }
-        return $this->redirectToRoute('superadmin_gerer_admin');
-
     }
 
     #[Route('/ajouter_admin', name: '_ajouter_admin')]

@@ -19,7 +19,7 @@
                         <td>{{ admin.nom }}</td>
                         <td>{{ admin.prenom }}</td>
                         <td>{{ admin.paysDAppartenance.nom }}</td>
-                        <td><a href="{{ path('superadmin_supprimer_admin', {'id_admin': admin.id}) }}">Supprimer</a></td>
+                        <td><a href="{{ path('utilisateur_supprimer_client', {'id_utilisateur': admin.id}) }}">Supprimer</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,11 +1,6 @@
 <?php
 
 namespace App\Controller;
-
-use App\Entity\Panier;
-use App\Entity\Utilisateur;
-use Doctrine\DBAL\Types\BooleanType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,19 +13,19 @@ use App\Service\UtilsService;
 #[Route('/panier', name: 'panier')]
 final class PanierController extends AbstractController
 {
-    #[Route('/gerer_panier', name: '_gerer_panier')] #[isGranted('IS_AUTHENTICATED_FULLY')]
-   public function gererPanierAction(UtilsService $panierService,Request $request): Response
+    #[Route('/gerer_panier', name: '_gerer_panier')]
+   public function gererPanierAction(UtilsService $panierService): Response
    {
-       $panier = $panierService->panierDeUtilisateur($this->getUser(),$request);
+       $panier = $panierService->panierDeUtilisateur($this->getUser());
        $args = ['panier' => $panier];
        return $this->render('Panier/gerer_panier.html.twig', $args);
    }
 
-   #[Route('/vider_panier', name: '_vider_panier')]#[isGranted('IS_AUTHENTICATED_FULLY')]
-   public function viderPanierAction( UtilsService $panierService,Request $request):Response
+   #[Route('/vider_panier', name: '_vider_panier')]
+   public function viderPanierAction( UtilsService $panierService):Response
    {
        $em = $panierService->get_entity_manager();
-       $panier = $panierService->panierDeUtilisateur($this->getUser(),$request);
+       $panier = $panierService->panierDeUtilisateur($this->getUser());
        if($panier != null){
            foreach ($panier as $prod){
                $produit = $prod->getProduit();
@@ -49,11 +44,11 @@ final class PanierController extends AbstractController
    }
 
 
-    #[Route('/commander', name: '_commander')] #[isGranted('IS_AUTHENTICATED_FULLY')]
-    public function commanderAction(UtilsService $panierService,Request $request):Response
+    #[Route('/commander', name: '_commander')]
+    public function commanderAction(UtilsService $panierService):Response
     {
         $em = $panierService->get_entity_manager();
-        $panier = $panierService->panierDeUtilisateur($this->getUser(),$request);
+        $panier = $panierService->panierDeUtilisateur($this->getUser());
         if($panier != null){
             foreach ($panier as $prod){
                 $em->remove($prod);
@@ -66,11 +61,12 @@ final class PanierController extends AbstractController
         return $this->redirectToRoute('panier_gerer_panier',['panier' =>$panier]);
     }
 
-    #[Route('/vider_produit_du_panier/{id_produit}',name: '_vider_produit_du_panier')]
-    public function viderProduitDuPanier(UtilsService $utilsService,Request $request,int $id_produit):Response
+    #[Route('/vider_produit_du_panier/{id_produit}',
+        name: '_vider_produit_du_panier',requirements: ['id_produit' => '\d+'])]
+    public function viderProduitDuPanier(UtilsService $utilsService,int $id_produit):Response
     {
         $em= $utilsService->get_entity_manager();
-        $panier_prod= $utilsService->panierDeUtilisateur($this->getUser(),$request);
+        $panier_prod= $utilsService->panierDeUtilisateur($this->getUser());
         if($panier_prod != null){
             foreach ($panier_prod as $prod){
                 $verif= false;

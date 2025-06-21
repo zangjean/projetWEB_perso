@@ -145,7 +145,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             }
 
         }
-
         $em->flush();
 
     }

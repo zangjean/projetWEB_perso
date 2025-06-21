@@ -28,7 +28,7 @@ final class AcceuilController extends AbstractController{
     {
         $quantitePanier =0;
         if($this->isGranted('ROLE_CLIENT')){
-            $quantitePanier = $utilsService->quantitePanierUtil($this->getUser()->getId(),$request);
+            $quantitePanier = $utilsService->quantitePanierUtil($this->getUser()->getId());
         }
 
         return $this->render('Panier/afficher_quantite_panier.html.twig', ['quantitePanier' => $quantitePanier]);
