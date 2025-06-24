@@ -1,0 +1,70 @@
+#vue {
+    min-height: 500px;
+    width: 90%;
+    background-color: rgba(127, 255, 212, 0.5);
+    margin: 0 auto;
+    border: 5px solid rgba(163, 105, 238, 0.5);
+    border-radius: 50px;
+    box-shadow: 0px 0px 20px 10px rgb(0, 47, 255);
+    padding: 20px;
+}
+
+#vue h1 {
+    text-align: center;
+    color: #000;
+    font-size: 5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+
+}
+
+#vue ul{
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+#vue ul li{
+    list-style-type: none;
+    height: 160px;
+    width: 160px;
+    margin: 20px;
+    background-color: bisque;
+    border: 2px solid rgba(255, 0, 234, 0.384);
+    border-radius: 10px;
+    /* Pour que le texte soit centré dans la boite  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #000;
+    font-size: 14px;
+}
+
+.table thead {
+    background-color: #009879;
+    color: white;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+.table tbody tr:hover {
+    background-color: #d1f0e5;
+}
+
+
